@@ -3,6 +3,14 @@ import { getWaitlistCount, joinWaitlist } from "./api.js";
 
 const FONT_LINK = "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap";
 
+const ink = "#0F172A";       // primary text (slate-900)
+const muted = "#64748B";     // secondary text (slate-500)
+const teal = "#0F766E";      // accent (teal-700)
+const amber = "#B45309";     // warm accent (amber-700)
+const surface = "#FFFFFF";   // card surface
+const border = "rgba(15,23,42,0.10)";
+const subtle = "rgba(15,23,42,0.04)";
+
 export default function StillHereLanding() {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -45,54 +53,32 @@ export default function StillHereLanding() {
     }
   }
 
-  const teal = "#4ECDC4";
-  const amber = "#E8A849";
-  const navy = "#1B2838";
-  const gray = "#8A9BB0";
-
   const personal = ["Parent", "Child abroad", "Caregiver"];
   const biz = ["Insurance", "Employer", "Just curious"];
 
   return (
     <div style={{
-      fontFamily: "'DM Sans', sans-serif",
-      background: `linear-gradient(170deg, #141E2B 0%, ${navy} 40%, #1F3044 100%)`,
+      fontFamily: "'DM Sans', system-ui, -apple-system, sans-serif",
+      background: `radial-gradient(1200px 600px at 50% -10%, #ECFDF5 0%, #FAFAFA 55%, #FFFFFF 100%)`,
+      color: ink,
       minHeight: "100vh",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
-      padding: "2rem 1.5rem",
-      position: "relative",
-      overflow: "hidden",
+      padding: "1.5rem 1.5rem 2rem",
+      boxSizing: "border-box",
     }}>
-      {/* Nav logo */}
-      <div style={{
-        position:"absolute", top:"1.25rem", left:"1.5rem",
-        fontFamily:"'DM Serif Display',serif", fontSize:"1.3rem",
-        color: teal, fontWeight:700, letterSpacing:"-0.02em",
-        display:"flex", alignItems:"center", gap:"8px",
-      }}>
-        StillHere <span style={{fontSize:"1.1rem"}}>💌</span>
-      </div>
-
-      {/* Background glow */}
-      <div style={{ position:"absolute", top:"-100px", right:"-200px", width:"600px", height:"600px", background:`radial-gradient(circle,rgba(78,205,196,0.06) 0%,transparent 70%)`, pointerEvents:"none" }} />
-      <div style={{ position:"absolute", bottom:"-150px", left:"-100px", width:"500px", height:"500px", background:`radial-gradient(circle,rgba(232,168,73,0.05) 0%,transparent 70%)`, pointerEvents:"none" }} />
-
       <style>{`
-        @keyframes fu { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fu { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .role-btn {
           padding: 9px 18px;
           border-radius: 100px;
-          border: 1.5px solid rgba(255,255,255,0.12);
-          background: transparent;
+          border: 1.5px solid ${border};
+          background: ${surface};
           font-size: 13.5px;
           font-family: 'DM Sans', sans-serif;
-          color: ${gray};
+          color: ${muted};
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.18s ease;
           outline: none;
           user-select: none;
         }
@@ -103,9 +89,8 @@ export default function StillHereLanding() {
         .role-btn.selected {
           background: ${teal};
           border-color: ${teal};
-          color: ${navy};
-          font-weight: 700;
-          transform: scale(1.03);
+          color: #fff;
+          font-weight: 600;
         }
         .role-btn.biz {
           border-style: dashed;
@@ -114,99 +99,140 @@ export default function StillHereLanding() {
           background: ${amber};
           border-color: ${amber};
           border-style: solid;
-          color: ${navy};
+          color: #fff;
+          font-weight: 600;
+        }
+        .submit-btn {
+          width: 100%;
+          padding: 16px;
+          border: none;
+          border-radius: 14px;
+          font-size: 15px;
           font-weight: 700;
-          transform: scale(1.03);
+          font-family: 'DM Sans', sans-serif;
+          letter-spacing: 0.01em;
+          transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+        .submit-btn:enabled {
+          background: ${ink};
+          color: #fff;
+          cursor: pointer;
+          box-shadow: 0 4px 18px rgba(15,23,42,0.15);
+        }
+        .submit-btn:enabled:hover {
+          background: ${teal};
+          transform: translateY(-1px);
+          box-shadow: 0 6px 22px rgba(15,118,110,0.25);
+        }
+        .submit-btn:disabled {
+          background: ${subtle};
+          color: ${muted};
+          cursor: default;
+        }
+        .email-input {
+          width: 100%;
+          padding: 14px 18px;
+          border: 1.5px solid ${border};
+          border-radius: 12px;
+          font-size: 15px;
+          font-family: 'DM Sans', sans-serif;
+          background: ${surface};
+          color: ${ink};
+          outline: none;
+          box-sizing: border-box;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .email-input::placeholder { color: ${muted}; }
+        .email-input:focus {
+          border-color: ${teal};
+          box-shadow: 0 0 0 4px rgba(15,118,110,0.10);
         }
       `}</style>
 
-      {/* Badge */}
+      {/* Logo */}
       <div style={{
-        fontSize:"11px", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase",
-        color: teal, background:"rgba(78,205,196,0.1)", border:"1px solid rgba(78,205,196,0.15)",
-        padding:"6px 18px", borderRadius:"100px", marginBottom:"2rem",
-        opacity:0, animation:"fu 0.7s 0.2s forwards",
+        fontFamily: "'DM Serif Display',serif",
+        fontSize: "1.25rem",
+        color: ink,
+        fontWeight: 400,
+        letterSpacing: "-0.02em",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
       }}>
-        Early access · 2026
+        StillHere <span style={{ fontSize: "1rem" }}>💌</span>
       </div>
 
-      {/* Headline */}
-      <h1 style={{
-        fontFamily:"'DM Serif Display',serif", fontSize:"clamp(2rem,5.5vw,3.5rem)", fontWeight:400,
-        lineHeight:1.18, color:"#fff", maxWidth:"650px", marginBottom:"0.5rem", letterSpacing:"-0.02em",
-        opacity:0, animation:"fu 0.7s 0.35s forwards",
+      {/* Hero — grows to push the CTA to the bottom */}
+      <main style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        padding: "3rem 0 2rem",
       }}>
-        That 3am question<br/>never goes away.
-      </h1>
+        <h1 style={{
+          fontFamily: "'DM Serif Display',serif",
+          fontSize: "clamp(2.25rem, 6vw, 4rem)",
+          fontWeight: 400,
+          lineHeight: 1.1,
+          letterSpacing: "-0.02em",
+          color: ink,
+          maxWidth: 760,
+          margin: 0,
+          opacity: 0,
+          animation: "fu 0.7s 0.15s forwards",
+        }}>
+          Your voice,{" "}
+          <em style={{
+            fontStyle: "italic",
+            color: teal,
+            fontWeight: 400,
+          }}>always</em>{" "}
+          on time.
+        </h1>
 
-      {/* Question */}
-      <p style={{
-        fontFamily:"'DM Serif Display',serif", fontSize:"clamp(1.3rem,3.5vw,2rem)",
-        color: amber, marginBottom:"1rem",
-        opacity:0, animation:"fu 0.7s 0.5s forwards",
+        <p style={{
+          fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
+          fontWeight: 400,
+          color: muted,
+          maxWidth: 560,
+          lineHeight: 1.6,
+          marginTop: "1.5rem",
+          marginBottom: 0,
+          opacity: 0,
+          animation: "fu 0.7s 0.35s forwards",
+        }}>
+          Time-locked letters, voice stories, and video messages — delivered to the people you love at exactly the right moment in life.
+        </p>
+      </main>
+
+      {/* CTA pinned near bottom */}
+      <section style={{
+        width: "100%",
+        maxWidth: 480,
+        margin: "0 auto",
+        opacity: 0,
+        animation: "fu 0.7s 0.55s forwards",
       }}>
-        "What if I'm not there?"
-      </p>
-
-      {/* Divider */}
-      <div style={{
-        width:"60px", height:"2px", background: teal, margin:"0 auto 1rem",
-        opacity:0, animation:"fu 0.7s 0.6s forwards",
-      }} />
-
-      {/* Answer */}
-      <p style={{
-        fontSize:"clamp(1.1rem,2.5vw,1.4rem)", fontWeight:600, color:"#fff", marginBottom:"0.4rem",
-        opacity:0, animation:"fu 0.7s 0.7s forwards",
-      }}>
-        <span style={{ color: teal, fontWeight: 700 }}>StillHere</span> is the answer.
-      </p>
-
-      {/* Tagline */}
-      <p style={{
-        fontSize:"1rem", fontWeight:300, color: gray, maxWidth:"480px", lineHeight:1.6, marginBottom:"0.5rem",
-        opacity:0, animation:"fu 0.7s 0.78s forwards",
-      }}>
-        Your love, always on time. Your voice, forever present.
-      </p>
-
-      {/* Description */}
-      <p style={{
-        fontSize:"0.85rem", fontWeight:300, color:"rgba(255,255,255,0.4)", maxWidth:"500px",
-        lineHeight:1.6, marginBottom:"2.5rem",
-        opacity:0, animation:"fu 0.7s 0.85s forwards",
-      }}>
-        Time-locked letters, voice stories, and video messages — delivered to the people you love at exactly the right moment in life.
-      </p>
-
-      {/* ─── FORM OR THANK YOU ─── */}
-      <div style={{ opacity:0, animation:"fu 0.7s 0.9s forwards", width:"100%", maxWidth:"460px" }}>
         {!submitted ? (
-          <div>
-            {/* Email input */}
+          <form onSubmit={handleSubmit}>
             <input
               type="email"
+              className="email-input"
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{
-                width:"100%", padding:"14px 18px", border:"1.5px solid rgba(255,255,255,0.12)",
-                borderRadius:"12px", fontSize:"15px", fontFamily:"'DM Sans',sans-serif",
-                background:"rgba(255,255,255,0.06)", color:"#fff", outline:"none",
-                marginBottom:"14px", boxSizing:"border-box",
-              }}
-              onFocus={(e) => e.target.style.borderColor = teal}
-              onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.12)"}
+              style={{ marginBottom: 16 }}
             />
 
-            {/* Row label */}
-            <p style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", color: gray, textAlign:"left", marginBottom:"8px" }}>
-              I'm here as...
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: muted, textAlign: "left", margin: "4px 0 8px" }}>
+              I'm here as…
             </p>
-
-            {/* Personal roles */}
-            <div style={{ display:"flex", gap:"8px", flexWrap:"wrap", marginBottom:"12px" }}>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
               {personal.map((r) => (
                 <button
                   key={r}
@@ -219,13 +245,10 @@ export default function StillHereLanding() {
               ))}
             </div>
 
-            {/* Biz label */}
-            <p style={{ fontSize:"11px", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", color: gray, textAlign:"left", marginBottom:"8px" }}>
-              I represent...
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: muted, textAlign: "left", margin: "4px 0 8px" }}>
+              I represent…
             </p>
-
-            {/* Biz roles */}
-            <div style={{ display:"flex", gap:"8px", flexWrap:"wrap", marginBottom:"18px" }}>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
               {biz.map((r) => (
                 <button
                   key={r}
@@ -238,68 +261,61 @@ export default function StillHereLanding() {
               ))}
             </div>
 
-            {/* Submit */}
             <button
-              onClick={handleSubmit}
+              type="submit"
+              className="submit-btn"
               disabled={!email || !role || loading}
-              style={{
-                width:"100%", padding:"14px", border:"none", borderRadius:"12px",
-                background: (!email || !role) ? "rgba(255,255,255,0.08)" : teal,
-                color: (!email || !role) ? gray : navy,
-                fontSize:"15px", fontWeight:700, fontFamily:"'DM Sans',sans-serif",
-                cursor: (!email || !role) ? "default" : "pointer",
-                transition:"all 0.25s", letterSpacing:"0.01em",
-              }}
-              onMouseEnter={(e) => { if (email && role) e.target.style.background = "#F5C97A"; }}
-              onMouseLeave={(e) => { if (email && role) e.target.style.background = teal; }}
             >
-              {loading ? "Joining..." : "Join the waitlist — it's free"}
+              {loading ? "Joining…" : "Join the waitlist — it's free"}
             </button>
 
-            {/* Error */}
             {error && (
-              <p style={{ fontSize:"12px", color: amber, marginTop:"10px" }}>
-                {error}
-              </p>
+              <p style={{ fontSize: 12, color: amber, marginTop: 10, marginBottom: 0 }}>{error}</p>
             )}
-
-            {/* Social proof */}
             {count > 0 && !error && (
-              <p style={{ fontSize:"12px", color: gray, marginTop:"10px" }}>
-                <span style={{ color: teal, fontWeight:700 }}>{count}</span> already signed up
+              <p style={{ fontSize: 12, color: muted, marginTop: 10, marginBottom: 0, textAlign: "center" }}>
+                <span style={{ color: teal, fontWeight: 700 }}>{count}</span> already signed up
               </p>
             )}
-          </div>
+          </form>
         ) : (
-          <div style={{ textAlign:"center" }}>
+          <div style={{ textAlign: "center", padding: "0.5rem 0" }}>
             <div style={{
-              width:"56px", height:"56px", borderRadius:"50%", background:"rgba(78,205,196,0.1)",
-              display:"flex", alignItems:"center", justifyContent:"center", fontSize:"26px",
-              margin:"0 auto 0.75rem",
+              width: 56, height: 56, borderRadius: "50%",
+              background: "rgba(15,118,110,0.08)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 26, margin: "0 auto 0.75rem",
             }}>💌</div>
-            <h2 style={{ fontFamily:"'DM Serif Display',serif", fontSize:"1.75rem", color:"#fff", marginBottom:"0.4rem" }}>
+            <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "1.75rem", color: ink, margin: "0 0 0.4rem" }}>
               You're in.
             </h2>
-            <p style={{ color: gray, fontSize:"0.95rem", lineHeight:1.6 }}>
+            <p style={{ color: muted, fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
               We'll reach out when StillHere is ready for you.
             </p>
             {count > 0 && (
-              <p style={{ fontSize:"12px", color: gray, marginTop:"0.75rem" }}>
-                <span style={{ color: teal, fontWeight:700 }}>{count}</span> families and counting
+              <p style={{ fontSize: 12, color: muted, marginTop: "0.75rem", marginBottom: 0 }}>
+                <span style={{ color: teal, fontWeight: 700 }}>{count}</span> families and counting
               </p>
             )}
           </div>
         )}
-      </div>
+      </section>
 
-      {/* Footer line */}
-      <p style={{
-        position:"absolute", bottom:"1.25rem",
-        fontSize:"12px", color:"rgba(255,255,255,0.25)",
+      {/* Footer */}
+      <footer style={{
+        marginTop: "1.5rem",
+        fontSize: 12,
+        color: muted,
+        textAlign: "center",
       }}>
-        <span style={{ color: teal, fontWeight:600 }}>stillhere.io</span>
-        {" · "}hello@stillhere.io{" · "}Built on AWS{" · "}© 2026 Intuitive.ai
-      </p>
+        <a
+          href="https://stillhere4u.com"
+          style={{ color: teal, textDecoration: "none", fontWeight: 600 }}
+        >
+          https://stillhere4u.com
+        </a>
+        {" · "}Built on AWS
+      </footer>
     </div>
   );
 }
