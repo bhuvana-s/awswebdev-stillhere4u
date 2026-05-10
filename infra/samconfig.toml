@@ -1,0 +1,14 @@
+version = 0.1
+
+[default.global.parameters]
+stack_name = "stillhere4u-waitlist"
+
+[default.deploy.parameters]
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = false
+resolve_s3 = true
+s3_prefix = "stillhere4u-waitlist"
+fail_on_empty_changeset = false
+# Pass parameter overrides on the CLI when narrowing CORS, e.g.
+#   sam deploy --parameter-overrides AllowedOrigin=https://stillhere4u.com

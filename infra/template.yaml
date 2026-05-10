@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: StillHere4U waitlist backend — DynamoDB + Lambda + HTTP API
+
+Parameters:
+  TableName:
+    Type: String
+    Default: stillhere-waitlist
+    Description: DynamoDB table name (partition key = email)
+  AllowedOrigin:
+    Type: String
+    Default: '*'
+    Description: |
+      CORS allow-origin for the API. Use '*' during initial testing,
+      then narrow to https://stillhere4u.com once the Amplify domain is live.
+  AdminToken:
+    Type: String
+    NoEcho: true
+    MinLength: 16
+    Description: |
+      Shared secret required by the /api/waitlist/stats endpoint.
+      Pass via --parameter-overrides AdminToken=...; never check into git.
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Architectures: [arm64]
+    Timeout: 5
+    MemorySize: 256
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref TableName
+
+Resources:
+  WaitlistTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref TableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  WaitlistApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref AllowedOrigin
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [Content-Type, x-admin-token]
+        MaxAge: 600
+
+  PostWaitlistFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-post'
+      CodeUri: lambda/waitlist-post/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TableName
+      Events:
+        PostApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistApi
+            Method: POST
+            Path: /api/waitlist
+
+  GetCountFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-count'
+      CodeUri: lambda/waitlist-count/
+      Handler: index.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref TableName
+      Events:
+        GetApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistApi
+            Method: GET
+            Path: /api/waitlist/count
+
+  StatsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-stats'
+      CodeUri: lambda/waitlist-stats/
+      Handler: index.handler
+      Timeout: 15
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName
+          ADMIN_TOKEN: !Ref AdminToken
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref TableName
+      Events:
+        GetApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WaitlistApi
+            Method: GET
+            Path: /api/waitlist/stats
+
+Outputs:
+  ApiUrl:
+    Description: HTTP API base URL — set as VITE_API_URL in Amplify env vars
+    Value: !Sub 'https://${WaitlistApi}.execute-api.${AWS::Region}.amazonaws.com'
+  TableName:
+    Description: DynamoDB table name
+    Value: !Ref WaitlistTable
