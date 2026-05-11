@@ -307,7 +307,7 @@ export default function StillHereLanding() {
         color: muted,
         textAlign: "center",
       }}>
-        We'll only email you about StillHere. No spam, no sharing, ever.
+        We'll only email you about StillHere <span style={{ fontStyle: "normal" }}>💌</span>. No spam, no sharing, ever.
       </footer>
     </div>
   );

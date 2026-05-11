@@ -133,8 +133,8 @@ export default function StatsPage() {
     return (
       <div style={{ ...wrapStyle, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: 360, ...card }}>
-          <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.4rem', color: ink, marginBottom: 6 }}>
-            StillHere · Admin
+          <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.4rem', color: ink, marginBottom: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+            StillHere <span style={{ fontSize: '1.1rem' }}>💌</span> · Admin
           </div>
           <p style={{ color: muted, fontSize: 13, marginTop: 0, marginBottom: 18 }}>
             Enter the admin token to view waitlist stats.
@@ -189,8 +189,8 @@ export default function StatsPage() {
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
           <div>
-            <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.4rem', color: ink }}>
-              StillHere · Admin
+            <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.4rem', color: ink, display: 'flex', alignItems: 'center', gap: 8 }}>
+              StillHere <span style={{ fontSize: '1.1rem' }}>💌</span> · Admin
             </div>
             <div style={{ color: muted, fontSize: 13 }}>Waitlist stats</div>
           </div>
@@ -237,7 +237,7 @@ export default function StatsPage() {
         {stats && (
           <>
             <section style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(6, 1fr)', gap: 12, marginBottom: 24 }}>
-              <div style={card}>
+              <div style={{ ...card, textAlign: 'center' }}>
                 <div style={{ color: muted, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   Total
                 </div>
@@ -246,7 +246,7 @@ export default function StatsPage() {
                 </div>
               </div>
               {ROLES.map((r) => (
-                <div key={r} style={card}>
+                <div key={r} style={{ ...card, textAlign: 'center' }}>
                   <div style={{ color: muted, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{r}</div>
                   <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.8rem', color: ROLE_COLORS[r], lineHeight: 1.1, marginTop: 4 }}>
                     {stats.totals[r] || 0}
