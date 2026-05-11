@@ -163,15 +163,13 @@ export default function StillHereLanding() {
         StillHere <span style={{ fontSize: "1rem" }}>💌</span>
       </div>
 
-      {/* Hero — grows to push the CTA to the bottom */}
+      {/* Hero — natural size, sits near the top */}
       <main style={{
-        flex: 1,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        padding: "3rem 0 2rem",
+        padding: "6rem 0 1.5rem",
       }}>
         <h1 style={{
           fontFamily: "'DM Serif Display',serif",
@@ -198,14 +196,16 @@ export default function StillHereLanding() {
           fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
           fontWeight: 400,
           color: muted,
-          maxWidth: 560,
+          maxWidth: 720,
           lineHeight: 1.6,
-          marginTop: "1.5rem",
+          marginTop: "2rem",
           marginBottom: 0,
+          textWrap: "balance",
           opacity: 0,
           animation: "fu 0.7s 0.35s forwards",
         }}>
-          Time-locked letters, voice stories, and video messages — delivered to the people you love at exactly the right moment in life.
+          Time-locked letters, voice stories, and video messages —<br />
+          delivered to the people you love at exactly the right moment in life.
         </p>
       </main>
 
@@ -219,6 +219,17 @@ export default function StillHereLanding() {
       }}>
         {!submitted ? (
           <form onSubmit={handleSubmit}>
+            <h2 style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "1.4rem",
+              fontWeight: 400,
+              color: ink,
+              textAlign: "center",
+              margin: "1.5rem 0 1.5rem",
+              letterSpacing: "-0.01em",
+            }}>
+              Join the waitlist
+            </h2>
             <input
               type="email"
               className="email-input"
@@ -248,7 +259,7 @@ export default function StillHereLanding() {
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: muted, textAlign: "left", margin: "4px 0 8px" }}>
               I represent…
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 0 }}>
               {biz.map((r) => (
                 <button
                   key={r}
@@ -265,8 +276,9 @@ export default function StillHereLanding() {
               type="submit"
               className="submit-btn"
               disabled={!email || !role || loading}
+              style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
             >
-              {loading ? "Joining…" : "Join the waitlist — it's free"}
+              {loading ? "Submitting…" : "Submit"}
             </button>
 
             {error && (
@@ -303,18 +315,13 @@ export default function StillHereLanding() {
 
       {/* Footer */}
       <footer style={{
-        marginTop: "1.5rem",
+        marginTop: "2rem",
         fontSize: 12,
+        fontStyle: "italic",
         color: muted,
         textAlign: "center",
       }}>
-        <a
-          href="https://stillhere4u.com"
-          style={{ color: teal, textDecoration: "none", fontWeight: 600 }}
-        >
-          https://stillhere4u.com
-        </a>
-        {" · "}Built on AWS
+        We'll only email you about StillHere. No spam, no sharing, ever.
       </footer>
     </div>
   );
