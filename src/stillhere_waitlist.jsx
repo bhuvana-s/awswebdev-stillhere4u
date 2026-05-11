@@ -92,16 +92,6 @@ export default function StillHereLanding() {
           color: #fff;
           font-weight: 600;
         }
-        .role-btn.biz {
-          border-style: dashed;
-        }
-        .role-btn.biz.selected {
-          background: ${amber};
-          border-color: ${amber};
-          border-style: solid;
-          color: #fff;
-          font-weight: 600;
-        }
         .submit-btn {
           width: 100%;
           padding: 16px;
@@ -114,15 +104,15 @@ export default function StillHereLanding() {
           transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
         .submit-btn:enabled {
-          background: ${ink};
+          background: ${teal};
           color: #fff;
           cursor: pointer;
-          box-shadow: 0 4px 18px rgba(15,23,42,0.15);
+          box-shadow: 0 6px 22px rgba(15,118,110,0.28);
         }
         .submit-btn:enabled:hover {
-          background: ${teal};
+          background: #134E4A;
           transform: translateY(-1px);
-          box-shadow: 0 6px 22px rgba(15,118,110,0.25);
+          box-shadow: 0 8px 26px rgba(19,78,74,0.35);
         }
         .submit-btn:disabled {
           background: ${subtle};
@@ -243,7 +233,7 @@ export default function StillHereLanding() {
             <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: muted, textAlign: "left", margin: "4px 0 8px" }}>
               I'm here as…
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
               {personal.map((r) => (
                 <button
                   key={r}
@@ -255,11 +245,7 @@ export default function StillHereLanding() {
                 </button>
               ))}
             </div>
-
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: muted, textAlign: "left", margin: "4px 0 8px" }}>
-              I represent…
-            </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 0 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 0 }}>
               {biz.map((r) => (
                 <button
                   key={r}
@@ -276,7 +262,7 @@ export default function StillHereLanding() {
               type="submit"
               className="submit-btn"
               disabled={!email || !role || loading}
-              style={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
+              style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
             >
               {loading ? "Submitting…" : "Submit"}
             </button>
