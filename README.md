@@ -231,7 +231,7 @@ GET /api/waitlist/stats        (admin)
 ```
 
 Allowed `role` values (match the chips on the landing page):
-`Parent`, `Child abroad`, `Caregiver`, `Insurance`, `Employer`, `Just curious`.
+`Parent`, `Child abroad`, `Caregiver`, `Doctor`, `Insurance`, `Employer`, `Just curious`.
 
 ---
 

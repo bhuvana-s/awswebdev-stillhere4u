@@ -20,6 +20,7 @@ const ALLOWED_ROLES = new Set([
   'Parent',
   'Child abroad',
   'Caregiver',
+  'Doctor',
   'Insurance',
   'Employer',
   'Just curious',

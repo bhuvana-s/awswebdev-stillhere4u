@@ -53,8 +53,9 @@ export default function StillHereLanding() {
     }
   }
 
-  const personal = ["Parent", "Child abroad", "Caregiver"];
-  const biz = ["Insurance", "Employer", "Just curious"];
+  const row1 = ["Parent", "Child abroad", "Caregiver"];
+  const row2 = ["Insurance", "Employer", "Doctor"];
+  const row3 = ["Just curious"];
 
   return (
     <div style={{
@@ -234,7 +235,19 @@ export default function StillHereLanding() {
               I'm here as…
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-              {personal.map((r) => (
+              {row1.map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  className={`role-btn ${role === r ? "selected" : ""}`}
+                  onClick={() => setRole(r)}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+              {row2.map((r) => (
                 <button
                   key={r}
                   type="button"
@@ -246,11 +259,11 @@ export default function StillHereLanding() {
               ))}
             </div>
             <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 0 }}>
-              {biz.map((r) => (
+              {row3.map((r) => (
                 <button
                   key={r}
                   type="button"
-                  className={`role-btn biz ${role === r ? "selected" : ""}`}
+                  className={`role-btn ${role === r ? "selected" : ""}`}
                   onClick={() => setRole(r)}
                 >
                   {r}

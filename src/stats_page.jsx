@@ -20,11 +20,12 @@ const surface = '#FFFFFF';
 const border = 'rgba(15,23,42,0.10)';
 const subtle = 'rgba(15,23,42,0.04)';
 
-const ROLES = ['Parent', 'Child abroad', 'Caregiver', 'Insurance', 'Employer', 'Just curious'];
+const ROLES = ['Parent', 'Child abroad', 'Caregiver', 'Insurance', 'Employer', 'Doctor', 'Just curious'];
 const ROLE_COLORS = {
   Parent: '#0F766E',         // teal-700
   'Child abroad': '#B45309', // amber-700
   Caregiver: '#7C3AED',      // violet-600
+  Doctor: '#DB2777',         // pink-600
   Insurance: '#DC2626',      // red-600
   Employer: '#2563EB',       // blue-600
   'Just curious': '#059669', // emerald-600
@@ -236,7 +237,7 @@ export default function StatsPage() {
 
         {stats && (
           <>
-            <section style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(6, 1fr)', gap: 12, marginBottom: 24 }}>
+            <section style={{ display: 'grid', gridTemplateColumns: '1.2fr repeat(7, 1fr)', gap: 12, marginBottom: 24 }}>
               <div style={{ ...card, textAlign: 'center' }}>
                 <div style={{ color: muted, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   Total

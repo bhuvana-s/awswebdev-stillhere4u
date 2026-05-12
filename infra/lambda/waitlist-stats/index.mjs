@@ -6,7 +6,7 @@ const TABLE = process.env.TABLE_NAME;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 const COUNTER_KEY = '__counter__';
 
-const ROLES = ['Parent', 'Child abroad', 'Caregiver', 'Insurance', 'Employer', 'Just curious'];
+const ROLES = ['Parent', 'Child abroad', 'Caregiver', 'Insurance', 'Employer', 'Doctor', 'Just curious'];
 
 const HEADERS = {
   'Content-Type': 'application/json',
